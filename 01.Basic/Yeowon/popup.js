@@ -2,13 +2,15 @@ const game_board = document.querySelector('.board');
 const game_size = 3;
 const card_num = game_size * game_size;
 
+let count = '';
+
 let card_state = [];
 
 function game_init() {
     card_state = [];
 
     document.querySelector('.board').style.gridTemplateColumns = `repeat(${game_size}, 1fr)`;
-    
+
     for (let i = 1; i < card_num; i++) {
         card_state.push(i);
     }
@@ -82,12 +84,17 @@ function move_card(index) {
     if (is_move_valid(index, empty_index)) {
         card_state[empty_index] = card_state[index];
         card_state[index] = null;
+
+        count = Number(count) + 1;
+        document.getElementById('moves').textContent = count;
+        console.log(count)
         set_card();
+
 
         if (is_game_solved()) {
             setTimeout(() => {
                 alert('게임 성공!');
-            }, 0);       
+            }, 0);
         }
     }
 }

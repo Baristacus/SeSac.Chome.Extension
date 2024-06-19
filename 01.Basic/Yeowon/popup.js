@@ -5,9 +5,11 @@ let card_state = [];
 
 function game_init() {
     card_state = [];
-    for(let i = 1; i < game_size * game_size; i++) {
+    for (let i = 1; i < game_size * game_size; i++) {
         card_state.push(i);
     }
+    document.querySelector('.board').style.gridTemplateColumns = `repeat(${game_size}, 1fr)`;
+
     card_state.push(null);
 
     set_card();
@@ -15,7 +17,7 @@ function game_init() {
 
 function set_card() {
     game_board.innerHTML = '';
-    for(let i = 0; i < card_state.length; i++) {
+    for (let i = 0; i < card_state.length; i++) {
         const card = document.createElement('div');
         if (card_state[i] == null) {
             card.textContent = ""
@@ -41,7 +43,7 @@ function move_card(index) {
 function is_move_valid(index, empty_index) {
     if (Math.floor(index / game_size) == Math.floor(empty_index / game_size) && Math.abs(index % game_size - empty_index % game_size) == 1)
         return true;
-    
+
     if (index % game_size == empty_index % game_size && Math.abs(Math.floor(index / game_size) - Math.floor(empty_index / game_size)) == 1)
         return true;
 
